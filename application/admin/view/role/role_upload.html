@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link href="../../../lib/css/xtree.css">
+    <link href="../../../lib/css/iconfont.css">
+    <link href="../../../lib/css/public.css">
+</head>
+<body>
+<ul id="groupRule"> test</ul>
+<script src="../../../lib/js/xtree.js"></script>
+<script src="../../../lib/js/jquery.min.js"></script>
+<script type="text/javascript">
+    //应该是通过ajax请求过来的
+    var data = [
+        {"id" : "1","text" : "我的公司", "spread" : true,"checked" : false,"childs":[{"id":"11","text":"公司管理","rules":"D"},
+            {"id":"12","text":"部门管理","rules":"CUD"}]},
+        {"id" : "2","text" : "租赁业务", "spread" : true,"checked" : false,"childs":[{"id":"21","text":"仓库管理","rules":"CD"},
+            {"id":"22","text":"库存管理","rules":"CU"}]},
+        {"id" : "3","text" : "物流业务", "spread" : true,"checked" : false,"childs":[]},
+        {"id" : "4","text" : "婚庆服务", "spread" : true,"checked" : false,"childs":[]},
+        {"id" : "5","text" : "拉皮条服务", "spread" : true,"checked" : false,"childs":[]}
+    ];
+    $(function(){
+        $("#groupRule").groupRule({title:"管理用户组",titleIcon:"&#x3104;",data:data,effect:200});
+    });
+</script>
+
+</body>
+</html>

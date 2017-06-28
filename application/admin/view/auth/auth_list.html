@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Matrix Admin</title>
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <link rel="stylesheet" href="../../lib/css/bootstrap.min.css"/>
+    <link rel="stylesheet" href="../../lib/css/bootstrap-responsive.min.css"/>
+    <link rel="stylesheet" href="../../lib/css/uniform.css"/>
+    <link rel="stylesheet" href="../../lib/css/select2.css"/>
+    <link rel="stylesheet" href="../../lib/css/matrix-style2.css"/>
+    <link rel="stylesheet" href="../../lib/css/matrix-media.css"/>
+    <link href="../../lib/font-awesome/css/font-awesome.css" rel="stylesheet"/>
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans:400,700,800' rel='stylesheet' type='text/css'>
+</head>
+<body>
+<div id="content">
+    <div id="content-header">
+        <h1>权限管理</h1>
+    </div>
+    <div class="container-fluid">
+        <div class="row-fluid">
+            <div class="span12">
+
+                <div class="widget-content">
+                    <button class="btn btn-success" id="add-auth">增加权限</button>
+                </div>
+                <div class="widget-box">
+                    <div class="widget-title"><span class="icon"> <i class="icon-th"></i> </span>
+                        <h5>权限列表</h5>
+                    </div>
+                    <div class="widget-content nopadding">
+                        <table class="table table-bordered table-striped">
+                            <thead>
+                            <tr>
+                                <th>ID</th>
+                                <th>权限名</th>
+                                <th>权限</th>
+                                <th>排序</th>
+                                <th>操作</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            {volist name="list" id="vo"}
+                            <tr class="odd gradeX">
+                                <td>{$vo.id}</td>
+                                <td>----{$vo.name}</td>
+                                <td>{$vo.c}/{$vo.a}
+                                </td>
+                                <td>{$vo.father_id}</td>
+                                <td>
+                                    <button type="button" class="tip-left" onclick="upload_info('{$vo.id}')" title="更新">
+                                        <i class="icon-save"></i></button>
+                                    <button type="button" class="tip-right" onclick="del_info('{$vo.id}')"
+                                            title="删除"><i class="icon-remove"></i></button>
+                                </td>
+                            </tr>
+                            {/volist}
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script src="../../lib/js/excanvas.min.js"></script>
+<script src="../../lib/js/jquery.min.js"></script>
+<script src="../../lib/js/jquery.ui.custom.js"></script>
+<script src="../../lib/js/bootstrap.min.js"></script>
+<script src="../../lib/js/nicescroll/jquery.nicescroll.min.js"></script>
+<script src="../../lib/js/matrix.js"></script>
+<script src="../../lib/layer/layer.js"></script>
+<script>
+    $('#add-auth').on('click', function () {
+        layer.open({
+            type: 2,
+            area: ['700px', '530px'],
+            fixed: false,
+            maxmin: true,
+            content: 'auth_add'
+        });
+    });
+
+    function upload_info(id) {
+        var url = 'auth_upload/' + id;
+        layer.open({
+            type: 2,
+            area: ['700px', '530px'],
+            fixed: false,
+            maxmin: true,
+            content: url
+        });
+    }
+    function del_info(id) {
+        layer.confirm('确定要删除？', {
+            btn: ['确定', '取消']
+        }, function () {
+            var data = {
+                id: id
+            };
+            $.ajax({
+                url: '/admin/Auth/auth_del',
+                type: 'POST',
+                dataType: 'json',
+                data: data
+            }).done(function (data) {
+                if (data.status === 1) {
+                    layer.msg('已经删除', {icon: 1, time: 1000});
+                } else if (data.status === 2) {
+                    layer.msg('删除失败', {icon: 2, time: 1000});
+                }else {
+                    layer.msg(data.msg);
+                }
+//                console.log(data);
+//                layer.msg('已经删除', {icon: 1, time: 1000});
+            }).fail(function () {
+                layer.msg('链接失效！');
+            });
+        }, function () {
+
+        })
+    }
+</script>
+</body>
+</html>

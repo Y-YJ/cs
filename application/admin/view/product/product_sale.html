@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Matrix Admin</title>
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <link rel="stylesheet" href="../../lib/css/bootstrap.min.css"/>
+    <link rel="stylesheet" href="../../lib/css/bootstrap-responsive.min.css"/>
+    <link rel="stylesheet" href="../../lib/css/uniform.css"/>
+    <link rel="stylesheet" href="../../lib/css/select2.css"/>
+    <link rel="stylesheet" href="../../lib/css/matrix-style2.css"/>
+    <link rel="stylesheet" href="../../lib/css/matrix-media.css"/>
+    <link href="../../lib/font-awesome/css/font-awesome.css" rel="stylesheet"/>
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans:400,700,800' rel='stylesheet' type='text/css'>
+</head>
+<body>
+<div id="content">
+    <div class="container-fluid">
+        <div class="row-fluid">
+            <div class="span12">
+                <div class="widget-box">
+                    <div class="widget-title"> <span class="icon"> <i class="icon-info-sign"></i> </span>
+                        <h5>销售</h5>
+                    </div>
+                    <div class="widget-content nopadding">
+                        <form class="form-horizontal" method="post" action="#" name="" id="" >
+                            <div class="control-group">
+                                <label class="control-label">条形码</label>
+                                <div class="controls">
+                                    <input type="text" name="tiao" id="tiao" />
+                                </div>
+                            </div>
+                            <div class="form-actions">
+                                <input type="button" onclick="sale_product()" value="确定" class="btn btn-success">
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script src="../../lib/js/excanvas.min.js"></script>
+<script src="../../lib/js/jquery.min.js"></script>
+<script src="../../lib/js/jquery.ui.custom.js"></script>
+<script src="../../lib/js/bootstrap.min.js"></script>
+<script src="../../lib/js/nicescroll/jquery.nicescroll.min.js"></script>
+<script src="../../lib/js/matrix.js"></script>
+<script src="../../lib/layer/layer.js"></script>
+<script>
+    $('#add-auth').on('click', function () {
+        layer.open({
+            type: 2,
+            area: ['700px', '530px'],
+            fixed: false,
+            maxmin: true,
+            content: 'auth_add'
+        });
+    });
+
+    function upload_info(id) {
+        var url = 'auth_upload/' + id;
+        layer.open({
+            type: 2,
+            area: ['700px', '530px'],
+            fixed: false,
+            maxmin: true,
+            content: url
+        });
+    }
+    function sale_product() {
+        var tiao=$('#tiao').val();
+        var data={
+            tiao:tiao
+        };
+            $.ajax({
+                url: '/admin/Product/product_sale',
+                type: 'POST',
+                dataType: 'json',
+                data: data
+            }).done(function (data) {
+                if (data.status === 1) {
+                    layer.msg('销售成功', {icon: 1, time: 1000});
+                    parent.layer.close();
+                } else if (data.status === 2) {
+                    layer.msg('销售失败', {icon: 2, time: 1000});
+                }else {
+                    layer.msg(data.msg);
+                }
+//                console.log(data);
+//                layer.msg('已经删除', {icon: 1, time: 1000});
+            }).fail(function () {
+                layer.msg('链接失效！');
+            });
+    }
+</script>
+</body>
+</html>

@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Matrix Admin</title>
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <link rel="stylesheet" href="../../lib/css/bootstrap.min.css"/>
+    <link rel="stylesheet" href="../../lib/css/bootstrap-responsive.min.css"/>
+    <link rel="stylesheet" href="../../lib/css/uniform.css"/>
+    <link rel="stylesheet" href="../../lib/css/select2.css"/>
+    <link rel="stylesheet" href="../../lib/css/matrix-style2.css"/>
+    <link rel="stylesheet" href="../../lib/css/matrix-media.css"/>
+    <link href="../../lib/font-awesome/css/font-awesome.css" rel="stylesheet"/>
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans:400,700,800' rel='stylesheet' type='text/css'>
+</head>
+<body>
+<div id="content">
+    <div class="container-fluid">
+        <div class="widget-content ">
+
+            <form class="form-horizontal" method="post" action="#" name="basic_validate" id="basic_validate"
+                  novalidate="novalidate">
+                <div class="control-group">
+                    <label class="control-label">角色名字</label>
+                    <div class="controls">
+                        <input type="text" name="role_name" id="role_name">
+                    </div>
+                </div>
+                <div class="control-group">
+                    <label class="control-label">描述</label>
+                    <div class="controls">
+                        <input type="text" name="description" id="description">
+                    </div>
+                </div>
+
+                <div class="form-actions">
+                    <input type="submit" id="add_btn" value="确认" class="btn btn-success">
+                </div>
+            </form>
+        </div>
+
+    </div>
+</div>
+</div>
+
+<script src="../../lib/js/jquery.min.js"></script>
+<script src="../../lib/js/jquery.ui.custom.js"></script>
+<script src="../../lib/js/bootstrap.min.js"></script>
+<script src="../../lib/js/jquery.uniform.js"></script>
+<script src="../../lib/js/select2.min.js"></script>
+<script src="../../lib/js/jquery.validate.js"></script>
+<script src="../../lib/js/matrix.js"></script>
+<script src="../../lib/js/matrix.form_validation.js"></script>
+<script src="../../lib/layer/layer.js"></script>
+<script>
+    var index = parent.layer.getFrameIndex(window.name);
+    $('#add_btn').click(function () {
+        parent.layer.close(index);
+    });
+</script>
+</body>
+</html>
